@@ -34,7 +34,7 @@ type Request struct {
 	Integrity string `json:"integrity,omitempty"`
 }
 
-func (req *Request) Marshall() ([]byte, error) {
+func (req *Request) Marshal() ([]byte, error) {
 	return json.Marshal(req)
 }
 
@@ -59,11 +59,11 @@ func (api *Fetch) Fetch(url string, req Request) (*Response, error) {
 	}
 	resp := &Response{}
 	err = evalResult.Value.Unmarshal(resp)
-	return resp, nil
+	return resp, err
 }
 
 func makeFetchJS(url string, req Request) (string, error) {
-	reqBytes, err := req.Marshall()
+	reqBytes, err := req.Marshal()
 	if err != nil {
 		return "", err
 	}
